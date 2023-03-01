@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  resources :customers
+  resources :taxes, :customers
   devise_for :users
 end
