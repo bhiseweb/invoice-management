@@ -1,4 +1,4 @@
-<%= form_with(model: invoice, class: "contents") do |form| %>
+<%= form_with model: invoice, class: "contents", data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' } do |form| %>
   <% if invoice.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
@@ -16,7 +16,21 @@
     <%= form.select :customer_id, Customer.all.collect { |customer| [customer.name, customer.id] }, {}, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
+  <template data-nested-form-target="template">
+    <%= form.fields_for :invoice_items, InvoiceItem.new, child_index: 'NEW_RECORD' do |invoice_item_fields| %>
+      <%= render "invoice_item_form", form: invoice_item_fields %>
+    <% end %>
+  </template>
+
+  <%= form.fields_for :invoice_items do |invoice_item_fields| %>
+    <%= render "invoice_item_form", form: invoice_item_fields %>
+  <% end %>
+
+  <div data-nested-form-target="target"></div>
+
+  <button type="button" data-action="nested-form#add" class="rounded-lg py-3 px-5 bg-orange-600 text-white inline-block font-medium cursor-pointer">Add invoice item</button>
+
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-orange-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
