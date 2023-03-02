@@ -8,29 +8,29 @@
     <%= link_to 'New invoice', new_invoice_path, class: "rounded-lg py-3 px-5 bg-orange-600 text-white block font-medium" %>
   </div>
 
-  <div id="invoices" class="min-w-full">
+  <div id="invoices" class=" mt-10 min-w-full">
     <table class="table-auto w-full">
-      <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+      <thead class="text-xs font-bold uppercase text-gray-600 bg-gray-50">
         <tr>
           <th class="p-2 whitespace-nowrap">
-            <div class="font-semibold text-left">Customer</div></th>
+            <div class="font-bold text-left">Customer</div></th>
           <th class="p-2 whitespace-nowrap">
-            <div class="font-semibold text-left">Total Gross</div></th>
+            <div class="font-bold text-left">Total Gross</div></th>
           <th class="p-2 whitespace-nowrap">
-            <div class="font-semibold text-left">Total Tax</div></th>
+            <div class="font-bold text-left">Total Tax</div></th>
           <th class="p-2 whitespace-nowrap">
-            <div class="font-semibold text-left">Total Net</div></th>
+            <div class="font-bold text-left">Total Net</div></th>
           <th class="p-2 whitespace-nowrap">
-            <div class="font-semibold text-left">Action</div></th>
+            <div class="font-bold text-left">Action</div></th>
         </tr>
       </thead>
       <tbody class="text-sm divide-y divide-gray-100">
         <% @invoices.each do |invoice| %>
           <tr id="<%= dom_id invoice %>">
-            <td class="p-2 whitespace-nowrap"><%= invoice.customer_id %></td>
-            <td class="p-2 whitespace-nowrap"><%= invoice.total_gross %></td>
-            <td class="p-2 whitespace-nowrap"><%= invoice.total_taxes  %></td>
-            <td class="p-2 whitespace-nowrap"><%= invoice.total_net %></td>
+            <td class="p-2 whitespace-nowrap"><%= invoice.customer.name %></td>
+            <td class="p-2 whitespace-nowrap"><%= invoice.total_gross.round(2) %></td>
+            <td class="p-2 whitespace-nowrap"><%= invoice.total_taxes.round(2)  %></td>
+            <td class="p-2 whitespace-nowrap"><%= invoice.total_net.round(2) %></td>
             <td class="p-2 whitespace-nowrap"><%= link_to "Show this invoice", invoice, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %></td>
           </tr>
         <% end %>

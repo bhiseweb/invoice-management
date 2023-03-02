@@ -40,7 +40,7 @@ class InvoicesController < ApplicationController
 
   def invoice_params
     params.require(:invoice)
-          .permit(:customer_id, :total_gross, :total_taxes, :total_net,
+          .permit(:customer_id, :invoice_date,
                   invoice_items_attributes: %i[id description units unit_cost tax_id item_total _destroy])
   end
 end
