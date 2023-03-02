@@ -2,7 +2,7 @@ class TaxesController < ApplicationController
   before_action :set_tax, only: %i[ show edit update destroy ]
 
   def index
-    @taxes = Tax.all
+    @taxes = Tax.page(params[:page]).per(2)
   end
 
   def show

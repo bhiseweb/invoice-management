@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ show edit update destroy ]
 
   def index
-    @customers = Customer.all
+    @customers = Customer.page(params[:page]).per(2)
   end
 
   def show
