@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaxesController < ApplicationController
   before_action :set_tax, only: %i[show edit update destroy]
 
