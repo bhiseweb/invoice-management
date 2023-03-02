@@ -1,25 +1,23 @@
 # Invoice Management
-![CI]()
 
-Invoice Management is the application to manage invoices and customers with some tax amount
+Invoice Management is the application to generate invoices
+create customers and taxes information.
 
-# Pre-requisite
+## Pre-requisite
 
 1. Install Ruby 3.1.2
-1. Install Rails 7.0.4.2
-1. Install postgres and setup local environment
+2. Install Rails 7.0.4.2
+3. Install postgres and setup local environment
 
-# Setup
+## Setup
 
 1. `bundle install`
-1. Setup `database.yml`
-1. `bundle exec rake db:create`
-1. `bundle exec rakd db:migrate`
-1. Start Server - `bin/dev`
+2. Setup `database.yml`
+3. `bundle exec rake db:create`
+4. `bundle exec rakd db:migrate`
+5. Start Server - `bin/dev`
 
-# Deploy
+## Login
 
-
-# Login
-email: "john@yopmail.com"
-password: 123456
+`email: "john@yopmail.com"`
+`password: 123456`
