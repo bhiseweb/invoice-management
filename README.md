@@ -1,24 +1,25 @@
-# README
+# Invoice Management
+![CI]()
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Invoice Management is the application to manage invoices and customers with some tax amount
 
-Things you may want to cover:
+# Pre-requisite
 
-* Ruby version
+1. Install Ruby 3.1.2
+1. Install Rails 7.0.4.2
+1. Install postgres and setup local environment
 
-* System dependencies
+# Setup
 
-* Configuration
+1. `bundle install`
+1. Setup `database.yml`
+1. `bundle exec rake db:create`
+1. `bundle exec rakd db:migrate`
+1. Start Server - `bin/dev`
 
-* Database creation
+# Deploy
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Login
+email: "john@yopmail.com"
+password: 123456
