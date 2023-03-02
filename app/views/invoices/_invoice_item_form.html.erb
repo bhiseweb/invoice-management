@@ -1,7 +1,9 @@
 <div class="nested-form-wrapper w-full rounded overflow-hidden shadow-lg mb-6">
   <div class="px-6 py-4">
-    <div class="font-bold text-xl mb-2">Invoice Item #1 </div>
-    <button type="button" data-action="nested-form#remove">Remove invoice_item</button>
+    <div class="row">
+      <div class="font-bold text-xl mb-2">Invoice Item #1 </div>
+      <button type="button" style="float: right;margin-top: -25px;" class="float-right rounded-lg py-3 px-5 bg-orange-600 text-white inline-block font-medium cursor-pointer" data-action="nested-form#remove">X</button>
+    </div>
     <%= form.hidden_field :_destroy %>
     <p class="text-gray-700 text-base">
       <div class="nested-form-wrapper flex flex-wrap -mx-3 mb-6" data-new-record="<%= form.object.new_record? %>">
