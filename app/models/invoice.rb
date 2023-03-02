@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# app/models/invoice.rb
 class Invoice < ApplicationRecord
   belongs_to :customer
   has_many :invoice_items, dependent: :destroy

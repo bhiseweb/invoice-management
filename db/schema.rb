@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_01_112334) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_02_105122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_112334) do
     t.decimal "item_total", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "tax_amount"
+    t.decimal "item_total_with_tax"
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
     t.index ["tax_id"], name: "index_invoice_items_on_tax_id"
   end

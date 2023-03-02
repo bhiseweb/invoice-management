@@ -1,18 +1,15 @@
+# frozen_string_literal: true
+
+# app/models/invoice_item.rb
 class InvoiceItem < ApplicationRecord
   belongs_to :tax
   belongs_to :invoice
 
   before_save :calculate_total
-  after_save :checksum
 
   def calculate_total
-    tax = Tax.find(self.tax_id).percentage
-    self.item_total = (self.units * self.unit_cost) + tax
-  end
-
-  def checksum
-    tax = Tax.find(self.tax_id).percentage
-    invoice = Invoice.find self.invoice_id
-    invoice.update(total_gross: self.item_total, total_taxes: tax, total_net: self.item_total, invoice_date: DateTime.now)
+    self.item_total = (units * unit_cost).to_f
+    self.tax_amount = (item_total / 100) * tax.percentage
+    self.item_total_with_tax = item_total + tax_amount
   end
 end
