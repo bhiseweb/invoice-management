@@ -1,60 +1,84 @@
-<div>
-  <h3 class="text-orange-400">FACTURAMA LMITED</h3>
-  </br><h3 class="font-bold text-4xl" >Invoice</h3>
-  <h6>Submitted on <%= @invoice.invoice_date if @invoice.invoice_date %></h6>
-  </br><div>
-    <p>Invoice for</p>
-    <p>RUTALIA CLUB DE CONDUCTORES SL</p>
-    <p>B87732566</p>
-  </div>
-  </br>
-  <div>
-    <hr>
-    <div class="p-9">
-      <div class="flex flex-col mx-0 mt-8">
-        <table class="min-w-full divide-y divide-slate-500">
-          <thead>
-            <tr>
-            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-normal text-slate-700 sm:pl-6 md:pl-0">
-              Description
-            </th>
-            <th scope="col" class="hidden py-3.5 px-3 text-right text-sm font-normal text-slate-700 sm:table-cell">
-              Quantity
-            </th>
-            <th scope="col" class="hidden py-3.5 px-3 text-right text-sm font-normal text-slate-700 sm:table-cell">
-              Unit Price
-            </th>
-            <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-normal text-slate-700 sm:pr-6 md:pr-0">
-              Item Tax
-            </th>
-            <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-normal text-slate-700 sm:pr-6 md:pr-0">
-              Total Price
-            </th>
-            </tr>
-          </thead>
-          <% @invoice.invoice_items.each do |invoice_item| %>
-            <tbody>
-              <tr class="border-b border-slate-200">
-              <td class="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">
-                <div class="font-medium text-slate-700"><%= invoice_item.description %></div>
-                <div class="mt-0.5 text-slate-500 sm:hidden">
-                  <%= invoice_item.units %>
-                </div>
-              </td>
-              <td class="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-                48
-              </td>
-              <td class="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-                $0.00
-              </td>
-              <td class="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                $0.00
-              </td>
-              </tr>
-            </tbody>
-          <% end %>
-        </table>
+<div class="w-full rounded-lg overflow-hidden shadow-2xl mt-3">
+  <div class="px-6 py-4">
+    <div>
+      <h3 class="text-orange-300 font-bold">XYZ Invoice Management Company</h3>
+      </br>
+      <h3 class="font-bold text-4xl text-orange-600" >INVOICE #00<%= @invoice.id%></h3>
+      <h6 class="text-gray-400">Submitted on <%= @invoice.invoice_date  %></h6>
+      </br><div>
+        <strong>Invoice for: </strong>
+        <p>
+          <%= @invoice.customer.name %> ( <%= @invoice.customer.fiscal_id %> )
+          <br>
+          1422 Twin Willow Lane, Fayetteville. North Carolina (28301)
+        </p>
+      </div>
+      </br>
+      <div>
+        <hr>
+        <div class="p-9">
+          <div class="flex flex-col mx-0 mt-8">
+            <table class="min-w-full divide-y divide-slate-500">
+              <thead>
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-md font-bold text-slate-700 sm:pl-6 md:pl-0">
+                    Description
+                  </th>
+                  <th scope="col" class="hidden py-3.5 px-3 text-right text-md font-bold text-slate-700 sm:table-cell">
+                    Quantity
+                  </th>
+                  <th scope="col" class="hidden py-3.5 px-3 text-right text-md font-bold text-slate-700 sm:table-cell">
+                    Unit Price
+                  </th>
+                  <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-md font-bold text-slate-700 sm:pr-6 md:pr-0">
+                    Item Tax
+                  </th>
+                  <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-md font-bold text-slate-700 sm:pr-6 md:pr-0">
+                    Total Price
+                  </th>
+                </tr>
+              </thead>
+              <% @invoice.invoice_items.each do |invoice_item| %>
+                <tbody>
+                  <tr class="border-b border-slate-200">
+                  <td class="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">
+                    <div class="font-medium text-slate-700"><%= invoice_item.description %></div>
+                  </td>
+                  <td class="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
+                    <%= invoice_item.units %>
+                  </td>
+                  <td class="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
+                    <%= invoice_item.unit_cost %>
+                  </td>
+                  <td class="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
+                    <%= invoice_item.tax_amount %>
+                  </td>
+                  <td class="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
+                    <%= invoice_item.item_total_with_tax %>
+                  </td>
+                  </tr>
+                </tbody>
+              <% end %>
+            </table>
+            <div class='mt-5'>
+              <h3 class="float-right text-xl text-orange-600" >
+                <span class="mr-20 text-gray-600">Sub-Total:</span> $ <%= @invoice.total_gross %>
+              </h3>
+            </div>
+            <div class='mt-5'>
+              <h6 class="float-right text-xl text-orange-600" >
+                <span class="mr-20 text-gray-600"> Taxes: </span> $ <%= @invoice.total_taxes %>
+              </h3>
+            </div>
+            <div class='mt-5'>
+              <h6 class="float-right font-bold text-4xl text-orange-600" >
+                $ <%= @invoice.total_gross %>
+              </h3>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+

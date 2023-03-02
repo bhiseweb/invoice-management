@@ -1,26 +1,29 @@
-<div id="<%= dom_id invoice %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Customer:</strong>
-    <%= invoice.customer_id %>
-  </p>
+<div class="w-full rounded-lg overflow-hidden shadow-2xl mt-3">
+  <div class="px-6 py-4">
+    <div id="<%= dom_id invoice %>">
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Customer:</strong>
+        <%= invoice.customer_id %>
+      </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Total gross:</strong>
-    <%= invoice.total_gross %>
-  </p>
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Total gross:</strong>
+        <%= invoice.total_gross %>
+      </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Total taxes:</strong>
-    <%= invoice.total_taxes %>
-  </p>
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Total taxes:</strong>
+        <%= invoice.total_taxes %>
+      </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Total net:</strong>
-    <%= invoice.total_net %>
-  </p>
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Total net:</strong>
+        <%= invoice.total_net %>
+      </p>
 
-  <% if action_name != "show" %>
-    <%= link_to "Show this invoice", invoice, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+      <% if action_name != "show" %>
+        <%= link_to "Show this invoice", invoice, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -9,7 +9,33 @@
   </div>
 
   <div id="invoices" class="min-w-full">
-    <%= render @invoices %>
+    <table class="table-auto w-full">
+      <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+        <tr>
+          <th class="p-2 whitespace-nowrap">
+            <div class="font-semibold text-left">Customer</div></th>
+          <th class="p-2 whitespace-nowrap">
+            <div class="font-semibold text-left">Total Gross</div></th>
+          <th class="p-2 whitespace-nowrap">
+            <div class="font-semibold text-left">Total Tax</div></th>
+          <th class="p-2 whitespace-nowrap">
+            <div class="font-semibold text-left">Total Net</div></th>
+          <th class="p-2 whitespace-nowrap">
+            <div class="font-semibold text-left">Action</div></th>
+        </tr>
+      </thead>
+      <tbody class="text-sm divide-y divide-gray-100">
+        <% @invoices.each do |invoice| %>
+          <tr id="<%= dom_id invoice %>">
+            <td class="p-2 whitespace-nowrap"><%= invoice.customer_id %></td>
+            <td class="p-2 whitespace-nowrap"><%= invoice.total_gross %></td>
+            <td class="p-2 whitespace-nowrap"><%= invoice.total_taxes  %></td>
+            <td class="p-2 whitespace-nowrap"><%= invoice.total_net %></td>
+            <td class="p-2 whitespace-nowrap"><%= link_to "Show this invoice", invoice, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
     <div class="text-center my-4">
       <%= will_paginate @invoices %>
     </div>
