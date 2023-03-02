@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TaxesController
 class TaxesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_tax, only: %i[show edit update destroy]

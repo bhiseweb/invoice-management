@@ -16,6 +16,7 @@ create customers and taxes information.
 3. `bundle exec rake db:create`
 4. `bundle exec rakd db:migrate`
 5. Start Server - `bin/dev`
+6. Run spec - `bundle exec rspec`
 
 ## Login
 

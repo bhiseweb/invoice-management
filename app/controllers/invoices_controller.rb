@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# InvoicesController
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_invoice, only: %i[show edit update destroy]
