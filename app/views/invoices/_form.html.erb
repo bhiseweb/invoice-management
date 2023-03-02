@@ -18,7 +18,7 @@
 
   <div class="my-5">
     <%= form.label :invoice_date %>
-    <%= form.date_select :invoice_date, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.date_field :invoice_date, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <template data-nested-form-target="template">
@@ -32,7 +32,7 @@
   <% end %>
 
   <div data-nested-form-target="target">
-    <button type="button" data-action="nested-form#add" class="mb-6 rounded-lg py-3 px-5 bg-orange-600 text-white inline-block font-medium cursor-pointer">+ Add invoice item </button>
+    <button type="button" data-action="nested-form#add" class="mb-6 text-orange-600 border border-orange-600 hover:bg-orange-600 hover:text-white active:bg-orange-600 font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">+ Add invoice item </button>
   </div>
 
   <div class="">

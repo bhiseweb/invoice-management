@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
+
+.pagination {
+  @apply flex justify-center;
+  @apply my-2 py-2;
+}
+
+.pagination * {
+  @apply px-3 py-2 mx-2;
+  @apply no-underline text-black bg-gray-200 rounded-lg;
+}
+
+.pagination em.current {
+  @apply font-semibold text-white bg-gray-400;
+}
+
+.pagination em.current {
+  @apply font-semibold text-white bg-gray-400;
+}
+
+.pagination span.disabled {
+  @apply font-semibold text-gray-200 bg-gray-100;
+}
+
+.pagination a:hover {
+  @apply font-semibold text-white bg-gray-700;
+}
+
 @tailwind utilities;
