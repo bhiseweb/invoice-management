@@ -12,14 +12,10 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <% if current_user %>
-        <%= link_to "edit profile", edit_user_registration_path %>
-        <%= link_to('logout',destroy_user_session_path,:method => :delete)%>
-      <% else %>
-        <%= link_to "login" , new_user_session_path %>
-        <%= link_to 'register' ,new_user_registration_path %>
-      <% end %>
+    <%= render 'layouts/sidebar' %>
+    <main class="flex mt-20" style="width: 80%;
+    float: left;
+    padding-left: 30px;">
       <%= yield %>
     </main>
   </body>

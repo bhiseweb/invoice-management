@@ -1,4 +1,4 @@
-<div class="w-full rounded overflow-hidden shadow-lg mb-6">
+<div class="nested-form-wrapper w-full rounded overflow-hidden shadow-lg mb-6">
   <div class="px-6 py-4">
     <div class="font-bold text-xl mb-2">Invoice Item #1 </div>
     <button type="button" data-action="nested-form#remove">Remove invoice_item</button>
@@ -23,16 +23,10 @@
         </div>
         <div class="w-full md:w-1/3 px-3 mt-2">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-            Tax ID
+            Tax
           </label>
-          <%= form.select :tax_id, Tax.all.collect { |tax| [tax.percentage, tax.id] }, {}, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
+          <%= form.select :tax_id, Tax.all.collect { |tax| [tax.tax_name, tax.id] }, {}, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
         </div>
-        <% if params[:action] == 'edit' %>
-          <div class="w-full px-3 mb-6 md:mb-0 mt-2">
-            <%= form.label :item_total %>
-            <%= form.text_field :item_total, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-          </div>
-        <% end %>
       </div>
     </p>
   </div>
