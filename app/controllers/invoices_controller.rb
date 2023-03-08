@@ -6,7 +6,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[show edit update destroy]
 
   def index
-    @invoices = Invoice.paginate(page: params[:page], per_page: 5)
+    @invoices = Invoice.includes(:customer).paginate(page: params[:page], per_page: 5)
   end
 
   def show; end
@@ -20,11 +20,6 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        @invoice.update(
-          total_gross: @invoice.invoice_items.sum(:item_total_with_tax).to_f,
-          total_taxes: @invoice.invoice_items.sum(:tax_amount).to_f,
-          total_net: @invoice.invoice_items.sum(:item_total).to_f
-        )
         format.html { redirect_to invoice_url(@invoice), notice: 'Invoice was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }

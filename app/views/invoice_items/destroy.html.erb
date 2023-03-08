@@ -1,0 +1,20 @@
+<%= fields model: @invoice do |form| %>
+  <%= form.fields_for :invoice_items, child_index: params[:index] do |invoice_item_form| %>
+    <%= turbo_stream.remove "invoice_table_item_#{invoice_item_form.index}" %>
+    <%= turbo_frame_tag "invoice_item_#{invoice_item_form.index}" do %>
+      <%= invoice_item_form.hidden_field :id, value: params[:id] %>
+      <%= invoice_item_form.hidden_field :_destroy, value: true %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.remove "invoice_item_rows" do %>
+  <% @invoice.invoice_items.each do |invoice_item| %>
+    <tr id="<%= dom_id invoice_item %>">
+      <td class="p-2 whitespace-nowrap"><%= invoice_item.description %></td>
+      <td class="p-2 whitespace-nowrap"><%= invoice_item.item_total_with_tax.round(2) %></td>
+      <td class="p-2 whitespace-nowrap"><%= invoice_item.tax_amount.round(2) %></td>
+      <td class="p-2 whitespace-nowrap"><%= invoice_item.item_total.round(2) %></td>
+    </tr>
+  <% end %>
+<% end %>

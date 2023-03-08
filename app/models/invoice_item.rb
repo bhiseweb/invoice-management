@@ -5,8 +5,6 @@ class InvoiceItem < ApplicationRecord
   belongs_to :tax
   belongs_to :invoice
 
-  before_save :calculate_total
-
   def calculate_total
     self.item_total = (units * unit_cost).to_f
     self.tax_amount = (item_total / 100) * tax.percentage

@@ -1,0 +1,18 @@
+<%# app/views/invoice_items/create.turbo_stream.erb %>
+<%= fields model: @invoice do |form| %>
+  <%= form.fields_for :invoice_items, child_index: (params[:index].to_i + 1) do |invoice_item_form| %>
+    <%= turbo_stream.replace "new-invoice_item" do %>
+      <%= form.submit "+ New Invoice Item",
+            formaction: invoice_item_path(invoice_item_form.index.to_i),
+            formmethod: :post,
+            formnovalidate: true,
+            id: "new-invoice_item",
+            class: "mb-6 text-orange-600 border border-orange-600 hover:bg-orange-600 hover:text-white active:bg-orange-600 font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+      %>
+    <% end %>
+
+    <%= turbo_stream.append "invoice_items" do %>
+      <%= render "form", form: invoice_item_form %>
+    <% end %>
+  <% end %>
+<% end %>
