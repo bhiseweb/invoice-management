@@ -11,31 +11,51 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :customer_id %>
-    <%= form.select :customer_id, Customer.all.collect { |customer| [customer.name, customer.id] }, {}, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
+
+  <div class="grid gap-6 mb-6 md:grid-cols-2">
+    <div>
+      <label for="customer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Customer</label>
+      <%= form.select :customer_id, Customer.all.collect { |customer| [customer.name, customer.id] }, {}, { class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" } %>
+    </div>
+    <div>
+      <label for="invoice_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Invoice Date</label>
+      <%= form.date_field :invoice_date, { class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" } %>
+    </div>
   </div>
 
-  <div class="my-5">
-    <%= form.label :invoice_date %>
-    <%= form.date_field :invoice_date, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
+  <div data-controller="hello">
+    <div class="grid gap-6 mb-6 md:grid-cols-3" >
+      <div>
+        <label for="total_gross" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Gross</label>
+        <%= form.text_field :total_gross , "data-hello-target"=>"totalGross", disabled: true, class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" %>
+      </div>
+      <div>
+        <label for="total_net" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Net</label>
+        <%= form.text_field :total_net, "data-hello-target"=>"totalNet",  disabled: true, class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" %>
+      </div>
+      <div>
+        <label for="total_tax" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Tax</label>
+        <%= form.text_field :total_tax, "data-hello-target"=>"totalTax", disabled: true, class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500", value: 0.0 %>
+      </div>
+    </div>
 
-  <template data-nested-form-target="template">
-    <%= form.fields_for :invoice_items, InvoiceItem.new, child_index: 'NEW_RECORD' do |invoice_item_fields| %>
+    <template data-nested-form-target="template">
+      <%= form.fields_for :invoice_items, InvoiceItem.new, child_index: 'NEW_RECORD' do |invoice_item_fields| %>
+        <%= render "invoice_item_form", form: invoice_item_fields %>
+      <% end %>
+    </template>
+
+    <%= form.fields_for :invoice_items do |invoice_item_fields| %>
       <%= render "invoice_item_form", form: invoice_item_fields %>
     <% end %>
-  </template>
 
-  <%= form.fields_for :invoice_items do |invoice_item_fields| %>
-    <%= render "invoice_item_form", form: invoice_item_fields %>
-  <% end %>
+    <div data-nested-form-target="target">
+      <button type="button" data-action="nested-form#add" class="mb-6 text-orange-600 border border-orange-600 hover:bg-orange-600 hover:text-white active:bg-orange-600 font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">+ Add invoice item </button>
+    </div>
 
-  <div data-nested-form-target="target">
-    <button type="button" data-action="nested-form#add" class="mb-6 text-orange-600 border border-orange-600 hover:bg-orange-600 hover:text-white active:bg-orange-600 font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">+ Add invoice item </button>
   </div>
 
-  <div class="">
+  <div>
     <%= form.submit class: "rounded-lg py-3 px-5 bg-orange-600 text-white inline-block font-medium cursor-pointer" %>
     <%= link_to 'Back to invoices', invoices_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
