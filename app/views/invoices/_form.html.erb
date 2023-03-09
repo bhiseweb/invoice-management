@@ -18,30 +18,15 @@
     </div>
     <div>
       <label for="invoice_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Invoice Date</label>
-      <%= form.date_field :invoice_date, { class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" } %>
+      <%= form.date_field :invoice_date, { value: Time.now.strftime('%Y-%m-%d'), class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" } %>
     </div>
   </div>
 
-  <table class="table-auto w-full bg-gray-200 mb-10">
-    <thead class="text-xs font-bold uppercase text-gray-600 bg-gray-50">
-      <tr>
-        <th class="p-2 whitespace-nowrap">
-          <div class="font-bold text-left">Description</div>
-        </th>
-        <th class="p-2 whitespace-nowrap">
-          <div class="font-bold text-left">Total Gross</div>
-        </th>
-        <th class="p-2 whitespace-nowrap">
-          <div class="font-bold text-left">Total Tax</div>
-        </th>
-        <th class="p-2 whitespace-nowrap">
-          <div class="font-bold text-left">Total Net</div>
-        </th>
-      </tr>
-    </thead>
-    <tbody class="text-sm divide-y divide-gray-100" id="invoice_item_rows">
-    </tbody>
-  </table>
+  <%= turbo_frame_tag "hidden_fields" do %>
+    <%= form.hidden_field :total_gross, value: 0.0 %>
+    <%= form.hidden_field :total_taxes, value: 0.0 %>
+    <%= form.hidden_field :total_net, value: 0.0 %>
+  <% end %>
 
   <div id="invoice_items">
     <%= form.fields_for :invoice_items do |invoice_item_form| %>

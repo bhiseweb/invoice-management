@@ -1,6 +1,6 @@
 <div class="mx-auto w-full">
   <div class="w-2/3 rounded overflow-hidden shadow-lg mb-6 p-6" style="width:65%;float:left">
-    <h1 class="mb-6 font-bold text-4xl">New invoice</h1>
+    <h1 class="mb-6 font-bold text-4xl">New Invoice</h1>
     <%= render "form", invoice: @invoice %>
   </div>
   <%= turbo_frame_tag "total_calculation" do %>
