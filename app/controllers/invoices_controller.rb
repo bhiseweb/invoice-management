@@ -6,7 +6,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[show edit update destroy]
 
   def index
-    @invoices = Invoice.paginate(page: params[:page], per_page: 5)
+    @invoices = Invoice.includes(:customer).paginate(page: params[:page], per_page: 5)
   end
 
   def show; end
@@ -41,6 +41,7 @@ class InvoicesController < ApplicationController
   def invoice_params
     params.require(:invoice)
           .permit(:customer_id, :invoice_date,
-                  invoice_items_attributes: %i[id description units unit_cost tax_id item_total _destroy])
+                  :total_gross, :total_net, :total_taxes,
+                  invoice_items_attributes: %i[id item_index description units unit_cost tax_id _destroy])
   end
 end
