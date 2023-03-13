@@ -27,9 +27,7 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
             Tax
           </label>
-          <select name="tax_id" class="tax_id block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" data-hello-target="tax" data-action="change->hello#calculate">
-            <%= select_options_for(@taxes) %>
-          </select>
+          <%= form.select :tax_id, Tax.all.pluck(:tax_name, :id), { }, class: 'tax_id block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full', "data-hello-target" => "tax", "data-action" => "change->hello#calculate" %>
           <%= form.hidden_field :item_total, value: 0.0, class: "item_total", "data-hello-target"=> "itemTotal" %>
           <%= form.hidden_field :tax_amount, value: 0.0, class: "tax_amount", "data-hello-target"=> "taxAmount" %>
           <%= form.hidden_field :item_total_with_tax, value: 0.0, class: "item_total_with_tax", "data-hello-target"=> "itemTotalWithTax" %>

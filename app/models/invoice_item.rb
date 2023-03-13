@@ -5,6 +5,8 @@ class InvoiceItem < ApplicationRecord
   belongs_to :tax
   belongs_to :invoice
 
+  validates_presence_of :description, message: "can't be blank"
+
   before_save :calculate_total
 
   def calculate_total

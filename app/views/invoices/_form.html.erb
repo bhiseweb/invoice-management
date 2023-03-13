@@ -18,26 +18,11 @@
     </div>
     <div>
       <label for="invoice_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Invoice Date</label>
-      <%= form.date_field :invoice_date, { class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" } %>
+      <%= form.date_field :invoice_date, { value: Time.now.strftime('%Y-%m-%d'), class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" } %>
     </div>
   </div>
 
   <div data-controller="hello">
-    <div class="grid gap-6 mb-6 md:grid-cols-3" >
-      <div>
-        <label for="total_gross" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Gross</label>
-        <%= form.text_field :total_gross , "data-hello-target"=>"totalGross", disabled: true, class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" %>
-      </div>
-      <div>
-        <label for="total_net" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Net</label>
-        <%= form.text_field :total_net, "data-hello-target"=>"totalNet",  disabled: true, class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" %>
-      </div>
-      <div>
-        <label for="total_tax" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Tax</label>
-        <%= form.text_field :total_tax, "data-hello-target"=>"totalTax", disabled: true, class: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500", value: 0.0 %>
-      </div>
-    </div>
-
     <template data-nested-form-target="template">
       <%= form.fields_for :invoice_items, InvoiceItem.new,data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }, child_index: 'NEW_RECORD' do |invoice_item_fields| %>
         <%= render "invoice_item_form", form: invoice_item_fields %>
@@ -45,7 +30,7 @@
     </template>
 
     <%= form.fields_for :invoice_items do |invoice_item_fields| %>
-      <%= render "invoice_item_form", form: invoice_item_fields, remote: true %>
+      <%= render "invoice_item_form", form: invoice_item_fields, remote: true , taxes: @taxes%>
     <% end %>
 
     <div data-nested-form-target="target">
