@@ -7,17 +7,26 @@
     <div class="w-1/3 rounded overflow-hidden shadow-lg mb-6 p-6" style="width:30%;float:right">
       <div class='mt-5'>
         <h3 class="float-right text-xl text-orange-600" >
-          <span class="mr-20 text-gray-600">Total Net:</span> $ <%= @invoice.total_net %>
+          <span class="mr-20 text-gray-600">Total Net:</span> $
+          <span id="total_net">
+            <%= @invoice.total_net %>
+          </span>
         </h3>
       </div>
       <div class='mt-5'>
         <h6 class="float-right text-xl text-orange-600" >
-          <span class="mr-20 text-gray-600"> Total Taxes: </span> $ <%= @invoice.total_taxes %>
+          <span class="mr-20 text-gray-600"> Total Taxes: </span> $
+          <span id="total_tax">
+            <%= @invoice.total_taxes %>
+          </span>
         </h3>
       </div>
       <div class='mt-5'>
         <h6 class="float-right font-bold text-4xl text-orange-600" >
-          Sub-Total: $ <%= @invoice.total_gross %>
+          Sub-Total: $
+          <span id="sub-total">
+            <%= @invoice.total_gross %>
+          </span>
         </h3>
       </div>
     </div>

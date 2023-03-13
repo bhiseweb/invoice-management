@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     member do
       delete '(:id)' => 'invoice_items#destroy', as: ''
       post '/' => 'invoice_items#create'
-      post 'add' => 'invoice_items#add'
     end
   end
 end

@@ -1,19 +1,10 @@
 # app/controllers/invoice_items_controller.rb
 class InvoiceItemsController < ApplicationController
-  before_action :set_invoice, except: [:add]
+  before_action :set_invoice
 
   def new; end
 
-  def create; end
-
-  def destroy
-  end
-
-  def add
-    @invoice = Invoice.new(invoice_params)
-    @invoice.invoice_items.each(&:calculate_total)
-    @invoice.calculate_sum
-  end
+  def destroy; end
 
   private
 
