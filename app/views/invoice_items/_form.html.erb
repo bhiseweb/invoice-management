@@ -9,7 +9,7 @@
           <button
             class="float-right rounded-lg py-3 px-5 bg-orange-600 text-white inline-block font-medium cursor-pointer"
             data-item-index = "<%= form.index %>"
-            data-action = "click->hello#resetForm"
+            data-action = "click->invoice#resetForm"
           >X</button>
 
       </div>
@@ -25,13 +25,13 @@
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
               Unit
             </label>
-            <%= form.number_field :units, id: "units_#{form.index}", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", "data-action": "input->hello#calculate", "data-item-index": "#{form.index}" %>
+            <%= form.number_field :units, id: "units_#{form.index}", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", "data-action": "input->invoice#calculate", "data-item-index": "#{form.index}" %>
           </div>
           <div class="w-full md:w-1/3 px-3 mt-2">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
               Unit Cost
             </label>
-            <%= form.number_field :unit_cost, id: "unit_cost_#{form.index}", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", "data-action": "input->hello#calculate", "data-item-index": "#{form.index}" %>
+            <%= form.number_field :unit_cost, id: "unit_cost_#{form.index}", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", "data-action": "input->invoice#calculate", "data-item-index": "#{form.index}" %>
           </div>
           <div class="w-full md:w-1/3 px-3 mt-2">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
@@ -40,7 +40,7 @@
             <select
               id="tax_<%= form.index %>"
               name="invoice[invoice_items_attributes][<%= form.index %>][tax_id]"
-              class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" data-hello-target="tax" data-action="change->hello#calculate" data-item-index="<%= form.index %>">
+              class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" data-invoice-target="tax" data-action="change->invoice#calculate" data-item-index="<%= form.index %>">
               <%= select_options_for_taxes %>
             </select>
           </div>
