@@ -6,13 +6,12 @@
     <div class="px-6 py-4">
       <div class="row">
         <div class="font-bold text-xl mb-2">Invoice Item #<%= form.index %> </div>
-        <%= form.submit "X",
-          formaction: invoice_item_path(form.index, form.object.id),
-          formmethod: :delete,
-          formnovalidate: true,
-          style: "float: right;margin-top: -25px;",
-          class: "float-right rounded-lg py-3 px-5 bg-orange-600 text-white inline-block font-medium cursor-pointer",
-          data: { turbo_frame: "invoice_item_#{form.index}" } %>
+          <button
+            class="float-right rounded-lg py-3 px-5 bg-orange-600 text-white inline-block font-medium cursor-pointer"
+            data-item-index = "<%= form.index %>"
+            data-action = "click->invoice#resetForm"
+          >X</button>
+
       </div>
       <%= form.hidden_field :_destroy %>
       <%= form.hidden_field :item_index, value: form.index %>
@@ -20,36 +19,35 @@
         <div class="flex flex-wrap -mx-3 mb-6">
           <div class="w-full px-3 mb-6 md:mb-0 mt-2">
             <%= form.label :description %>
-            <%= form.text_field :description, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+            <%= form.text_field :description, id: "description_#{form.index}", class:"block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
           </div>
           <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0 mt-2">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
               Unit
             </label>
-            <%= form.number_field :units, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+            <%= form.number_field :units, id: "units_#{form.index}", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", "data-action": "input->invoice#calculate", "data-item-index": "#{form.index}" %>
           </div>
           <div class="w-full md:w-1/3 px-3 mt-2">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
               Unit Cost
             </label>
-            <%= form.number_field :unit_cost, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+            <%= form.number_field :unit_cost, id: "unit_cost_#{form.index}", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", "data-action": "input->invoice#calculate", "data-item-index": "#{form.index}" %>
           </div>
           <div class="w-full md:w-1/3 px-3 mt-2">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
               Tax
             </label>
-            <%= form.select :tax_id, Tax.all.collect { |tax| [tax.tax_name, tax.id] }, {}, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
+            <select
+              id="tax_<%= form.index %>"
+              name="invoice[invoice_items_attributes][<%= form.index %>][tax_id]"
+              class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" data-invoice-target="tax" data-action="change->invoice#calculate" data-item-index="<%= form.index %>">
+              <%= select_options_for_taxes %>
+            </select>
           </div>
 
-          <div>
-            <%= form.submit 'Update invoice item',
-              formaction: add_invoice_item_path(form.index.to_i),
-              formmethod: :post,
-              formnovalidate: true,
-              id: "add-invoice_item",
-              class: "mb-6 mt-6 text-orange-600 border border-orange-600 hover:bg-orange-600 hover:text-white active:bg-orange-600 font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            %>
-          </div>
+          <%= form.hidden_field :item_total, value: 0.0, id: "item_total_#{form.index}", class: "item_totals" %>
+          <%= form.hidden_field :tax_amount, value: 0.0, id: "tax_amount_#{form.index}", class: "tax_amounts" %>
+          <%= form.hidden_field :item_total_with_tax, value: 0.0, id: "item_total_with_tax_#{form.index}", class: "item_total_with_taxes" %>
         </div>
       </p>
     </div>
